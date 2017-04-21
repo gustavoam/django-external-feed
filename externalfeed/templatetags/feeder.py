@@ -8,10 +8,9 @@ register = template.Library()
 @register.simple_tag(takes_context=True)
 def feeds(context, format_string='', limit=0):
     t = template.loader.get_template('externalfeed/feeds_snippet.html')
-    return t.render(template.Context(
-        {'feeds': utils.feeds(),
-         'format_string': format_string,
-         'limit': limit}))
+    return t.render({'feeds': utils.feeds(),
+                     'format_string': format_string,
+                     'limit': limit})
 
 
 @register.simple_tag(takes_context=True)
@@ -34,18 +33,17 @@ def single_feed(context, key, format_string='', limit=0):
     else:
         entries = feed.entries
     t = template.loader.get_template('externalfeed/single_feed_snippet.html')
-    return t.render(template.Context(
-        {'feed': feed,
-         'entries': entries,
-         'full': full,
-         'as_list': as_list}))
+    return t.render({'feed': feed,
+                     'entries': entries,
+                     'full': full,
+                     'as_list': as_list})
 
 
 @register.simple_tag(takes_context=True)
 def feed_entry(context, key, path):
     entry = utils.feeditem(key, path)
     t = template.loader.get_template('externalfeed/entry_snippet.html')
-    return t.render(template.Context({'entry': entry}))
+    return t.render({'entry': entry})
 
 
 @register.simple_tag(takes_context=True)
